@@ -1,0 +1,15 @@
+.dark{
+    background:rgba(52, 58, 64, .5);
+}
+.details{
+    list-style-type: none;
+    padding: 0;
+    &__item{
+        border-top: 1px solid #000;
+        padding: 10px;
+        &:last-child{
+            border-bottom: 1px solid #000;
+        }
+
+    }
+}
