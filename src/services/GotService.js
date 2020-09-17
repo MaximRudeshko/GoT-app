@@ -13,8 +13,8 @@ export default class GotService{
     }
     
     async getAllCharacters(){
-        const res = await this.getResources('/characters');
-        return res.map(this._transformCharacter)
+        const res = await this.getResources('/characters?page=5');
+        return res.map(char => this._transformCharacter(char))
     }
 
     async getCharacter(id){
@@ -23,7 +23,7 @@ export default class GotService{
     }
 
     async getAllHouses(){
-        const res = await this.getResources('/houses');
+        const res = await this.getResources('/houses?page=5');
         return res.map(house => this._transormHouses(house))
     }
 
@@ -33,7 +33,7 @@ export default class GotService{
     }
 
     async getAllBooks(){
-        const res = await this.getResources('/books');
+        const res = await this.getResources('/books?page=5');
         return res.map(book => this._transormHouses(book))
     }
 
@@ -42,8 +42,13 @@ export default class GotService{
         return res._transormHouses(res)
     }
 
+    _extractId = (item) => {
+        return +item.url.replace(/\D/g, '')
+    }
+
     _transformCharacter(char){
         return {
+            id: this._extractId(char),
             name: char.name,
             gender:char.gender,
             culture:char.culture,

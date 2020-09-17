@@ -1,0 +1,10 @@
+.list{
+    flex: 0 0 45%;
+    &-group-item{
+        cursor:pointer;
+        transition: all .2s ease;
+        &:hover{
+            background:rgba(52, 58, 64, 1);
+        }
+    }
+}

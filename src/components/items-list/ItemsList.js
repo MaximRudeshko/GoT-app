@@ -1,19 +1,54 @@
-import React from 'react'
+import React, { Component } from 'react'
+import GotService from '../../services/GotService'
+import Loader from '../loader/Loader';
+import './ItemsList.scss'
 
 
-const ItemList = (props) => {
+export default class ItemList extends Component{
 
-    return(
-        <div className = 'jumbotron dark'>
-            <ul className="list-group">
-                <li className="list-group-item dark">Cras justo odio</li>
-                <li className="list-group-item dark">Dapibus ac facilisis in</li>
-                <li className="list-group-item dark">Morbi leo risus</li>
-                <li className="list-group-item dark">Porta ac consectetur ac</li>
-                <li className="list-group-item dark">Vestibulum at eros</li>
-            </ul>
-        </div>
-    )
+    gotService = new GotService();
+
+    state = {
+        characters: null
+    }
+
+    componentDidMount(){
+        this.fetchCharacters()
+    }
+
+    fetchCharacters(){
+        this.gotService.getAllCharacters()
+            .then(chars => {
+                this.setState({
+                    characters:chars
+                })             
+            })
+    }
+
+    render(){
+        const {characters} = this.state
+
+        return(
+            <div className = 'jumbotron dark characters-list list'>
+                <h3>Characters: </h3>
+                {!characters ? <Loader/>: 
+                    <ul className="list-group">
+                        {characters.map((item, i) => {
+                            return (
+                                <li 
+                                key = {i}
+                                onClick = {() => this.props.onCharacterSelected(item.id)}
+                                className="list-group-item dark">
+                                    {item.name}
+                                </li>
+                            )
+                        })}  
+                    </ul>
+                }
+                
+            </div>
+        )
+    }
 }
 
-export default ItemList
+
