@@ -2,7 +2,7 @@ export default class GotService{
     constructor(){
         this._apiBase = 'https://www.anapioficeandfire.com/api'
     }
-    async getResources(url){
+    getResources = async (url) => {
         const res = await fetch(`${this._apiBase}${url}`)
     
         if(!res.ok){
@@ -12,41 +12,41 @@ export default class GotService{
         return await res.json()
     }
     
-    async getAllCharacters(){
+    getAllCharacters = async () => {
         const res = await this.getResources('/characters?page=5');
         return res.map(char => this._transformCharacter(char))
     }
 
-    async getCharacter(id){
+    getCharacter = async (id) => {
         const res = await this.getResources(`/characters/${id}`)
         return this._transformCharacter(res)
     }
 
-    async getAllHouses(){
+    getAllHouses = async () => {
         const res = await this.getResources('/houses?page=5');
         return res.map(house => this._transormHouses(house))
     }
 
-    async getHouse(id){
+    getHouse = async (id) => {
         const res = await this.getResources(`/houses/${id}`)
-        return res._transormHouses(res)
+        return this._transormHouses(res)
     }
 
-    async getAllBooks(){
-        const res = await this.getResources('/books?page=5');
-        return res.map(book => this._transormHouses(book))
+    getAllBooks = async () => {
+        const res = await this.getResources('/books?page=1');
+        return res.map(book => this._transformBooks(book))
     }
 
-    async getBook(id){
+    getBook = async (id) => {
         const res = await this.getResources(`/books/${id}`)
-        return res._transormHouses(res)
+        return this._transformBooks(res)
     }
 
     _extractId = (item) => {
         return +item.url.replace(/\D/g, '')
     }
 
-    _transformCharacter(char){
+    _transformCharacter = (char) =>{
         return {
             id: this._extractId(char),
             name: char.name,
@@ -57,8 +57,9 @@ export default class GotService{
         }
     }
 
-    _transormHouses(house){
+    _transormHouses = (house) => {
         return {
+            id: this._extractId(house),
             name:house.name,
             region:house.region,
             overlord:house.overlord,
@@ -66,8 +67,9 @@ export default class GotService{
         }
     }
 
-    _transformBooks(book){
+    _transformBooks = (book) => {
         return {
+            id: this._extractId(book),
             name:book.name,
             publisher:book.publisher,
             numberOfPages:book.numberOfPages,

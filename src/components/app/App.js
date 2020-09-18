@@ -1,39 +1,35 @@
 import React, { Component } from 'react';
 import Header from '../header/Header'
-import ItemDetails from '../ItemDetails/ItemDetails';
-import ItemList from '../items-list/ItemsList';
 import RandomCharacter from '../randomCharacter/RandomCharacter';
-import GotService from '../../services/GotService'
-
 import './App.css';
+import ErrorBoundry from '../ErrorBoundry/ErrorBoundry';
+import CharatersPage from '../charactersPage/CharactersPage';
+import BooksPage from '../BooksPage/BooksPage'
+import HousesPage from '../Housespage/HousesPage';
+import { BrowserRouter, Switch,Route } from 'react-router-dom';
 
 class App extends Component {
 
-  
 
-  state = {
-    selectedChar: null,
-  }
-
-
-  onCharacterSelected = (id) => {
-    this.setState({
-      selectedChar: id
-    })
-  }
 
   render(){  
     return (
-      <React.Fragment>
-        <div className="container">
-          <Header/>
-          <RandomCharacter />
-          <div className = 'row pl-3 pr-3 justify-content-between'>
-            <ItemList onCharacterSelected = {this.onCharacterSelected} />
-            <ItemDetails charId = {this.state.selectedChar}/>
-          </div>
-        </div>
-      </React.Fragment>
+
+
+        <ErrorBoundry>
+          <BrowserRouter>
+            <div className="container">
+              <Header/>
+              <RandomCharacter />
+              <Switch>
+                <Route path = '/' render = {() => <h2>Welcome to Game Of Thrones App</h2>} exact/>
+                <Route path = '/characters' component={CharatersPage}/>
+                <Route path = '/houses' component={HousesPage}/>                
+                <Route path = '/books' component={BooksPage}/>                
+              </Switch>
+            </div>
+          </BrowserRouter>
+        </ErrorBoundry>
 
     );
   } 

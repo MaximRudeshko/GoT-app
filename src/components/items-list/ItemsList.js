@@ -4,48 +4,48 @@ import Loader from '../loader/Loader';
 import './ItemsList.scss'
 
 
+
 export default class ItemList extends Component{
 
     gotService = new GotService();
 
     state = {
-        characters: null
+        item: null
     }
 
     componentDidMount(){
-        this.fetchCharacters()
+        this.fetchItem()
     }
 
-    fetchCharacters(){
-        this.gotService.getAllCharacters()
-            .then(chars => {
+    fetchItem(){
+        this.props.getData()
+            .then(items => {
                 this.setState({
-                    characters:chars
-                })             
+                    item:items
+                })            
             })
     }
 
     render(){
-        const {characters} = this.state
-
+        const {item} = this.state
         return(
             <div className = 'jumbotron dark characters-list list'>
-                <h3>Characters: </h3>
-                {!characters ? <Loader/>: 
+                {this.props.title}
+                {!item ? <Loader/>: 
                     <ul className="list-group">
-                        {characters.map((item, i) => {
+                        {item.map((item) => {
+                            const label = this.props.renderItem(item)
                             return (
                                 <li 
-                                key = {i}
-                                onClick = {() => this.props.onCharacterSelected(item.id)}
+                                key = {item.id}
+                                onClick = {() => this.props.onItemSelected(item.id)}
                                 className="list-group-item dark">
-                                    {item.name}
+                                    {label}
                                 </li>
                             )
                         })}  
                     </ul>
-                }
-                
+                } 
             </div>
         )
     }

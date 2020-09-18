@@ -28,9 +28,13 @@
         }
         &__item{
             transition: all .2s ease-in;
-            font-size: 18px;
-            font-weight: 900;
-            cursor: pointer;
+            a{
+                color:#fff;
+                font-size: 18px;
+                font-weight: 900;
+                cursor: pointer;
+                text-decoration: none;
+            }
             &:hover{
                 transform: scale(1.5);
             }
