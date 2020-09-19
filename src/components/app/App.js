@@ -20,9 +20,9 @@ class App extends Component {
           <BrowserRouter>
             <div className="container">
               <Header/>
-              <RandomCharacter />
+              
               <Switch>
-                <Route path = '/' render = {() => <h2>Welcome to Game Of Thrones App</h2>} exact/>
+                <Route path = '/' component = {RandomCharacter} exact/>
                 <Route path = '/characters' component={CharatersPage}/>
                 <Route path = '/houses' component={HousesPage}/>                
                 <Route path = '/books' component={BooksPage}/>                

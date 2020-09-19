@@ -3,16 +3,10 @@ import ItemList from '../items-list/ItemsList'
 import ErrorBoundry from '../ErrorBoundry/ErrorBoundry'
 import ItemDetails from '../ItemDetails/ItemDetails'
 import GotService from '../../services/GotService'
+import Row from '../row/Row'
+import {Record} from '../ItemDetails/ItemDetails'
 
 
-const Row = ({right, left}) => {
-    return (
-        <div className = 'row pl-3 pr-3 justify-content-between'>
-            {left}
-            {right}
-        </div>
-    ) 
-}
 
 class CharatersPage extends Component{
 
@@ -32,25 +26,28 @@ class CharatersPage extends Component{
 
     render(){
 
-        const itemList = (
+        const charactersList = (
             <ItemList onItemSelected = {this.onCharSelected} 
                 getData = {() => this.gotService.getAllCharacters()}
                 title = {<h3>Characters:</h3>}
-                renderItem = {(item) => <span>{item.name}</span>}
+                renderName = {(item) => <span>{item.name}</span>}
             />
         )
 
-        const itemDetails = (
+        
+        const characterDetails = (
             <ErrorBoundry>
                 <ItemDetails itemId = {this.state.selectedChar} 
                             getData = {this.gotService.getCharacter} 
                             title = {<h3>Please choose a character</h3>}
-                />
+                >
+                    <Record field = 'gender' label = 'Gender'/>
+                </ItemDetails>
             </ErrorBoundry>
         )
 
 
-        return <Row left = {itemList} right = {itemDetails}/>
+        return <Row left = {charactersList} right = {characterDetails}/>
     }
 } 
 export default CharatersPage

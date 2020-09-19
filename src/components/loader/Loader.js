@@ -3,8 +3,10 @@ import './Loader.css'
 
 const Loader = () => {
     return (
-        <div className = 'loader'>
-            <div className="lds-dual-ring"></div>
+        <div className = 'jumbotron dark characters-list list'>
+            <div className = 'loader'>
+                <div className="lds-dual-ring"></div>
+            </div>
         </div>
     )
 }

@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import ItemList from '../items-list/ItemsList';
 import GotService from '../../services/GotService'
 import ErrorBoundry from '../ErrorBoundry/ErrorBoundry';
-import ItemDetails from '../ItemDetails/ItemDetails';
+import ItemDetails, { Record } from '../ItemDetails/ItemDetails';
+import Row from '../row/Row';
 
 
 class BooksPage extends Component {
@@ -20,21 +21,27 @@ class BooksPage extends Component {
 
 
     render(){
-        return(
-            <div className = 'row pl-3 pr-3 justify-content-between'>
-                <ItemList onItemSelected = {this.onBookSelected} 
-                          getData = {() => this.gotService.getAllBooks()}
-                          title = {<h3>Books:</h3>}
-                          renderItem = {(item) => <span>{item.name}</span>}
-                />
-                <ErrorBoundry>
-                    <ItemDetails itemId = {this.state.selectedBook}
-                                 getData = {this.gotService.getBook} 
-                                 title = { <h3>Please choose a book:</h3>}
-                    />
-                </ErrorBoundry>
-            </div>
+
+        const booksList = (
+            <ItemList onItemSelected = {this.onBookSelected} 
+                getData = {() => this.gotService.getAllBooks()}
+                title = {<h3>Books:</h3>}
+                renderName = {(item) => <span>{item.name}</span>}
+            />
         )
+
+        const bookDetails = (
+            <ErrorBoundry>
+                <ItemDetails itemId = {this.state.selectedBook}
+                    getData = {this.gotService.getBook} 
+                    title = { <h3>Please choose a book:</h3>}
+                >
+                    <Record label = 'Country' field = 'country'/>
+                </ItemDetails>
+            </ErrorBoundry>
+        )
+
+        return <Row left = {booksList} right = {bookDetails}/>   
     }
 }
 

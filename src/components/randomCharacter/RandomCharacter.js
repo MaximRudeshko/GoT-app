@@ -7,7 +7,6 @@ import './RandomCharacter.scss'
 
 class RandomCharacter extends Component{
 
-
     state = {
         char: {},
         loading:true,
@@ -50,7 +49,7 @@ class RandomCharacter extends Component{
         const loader = loading ? <Loader/> : null 
 
         return( 
-            <div className = 'random-character jumbotron mt-3 dark'>
+            <div className = 'random-character pl-3 pr-3 jumbotron mt-3 dark'>
                     {errorMessage}
                     {loader}
                     {content}      
