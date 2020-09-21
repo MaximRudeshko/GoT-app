@@ -5,6 +5,8 @@ import ItemDetails from '../ItemDetails/ItemDetails'
 import GotService from '../../services/GotService'
 import Row from '../row/Row'
 import {Record} from '../ItemDetails/ItemDetails'
+import { CharactersList } from '../Item-Lists/ItemLists'
+import { GotServiceConsumer } from '../service-context/GotServiceContext'
 
 
 
@@ -27,11 +29,18 @@ class CharatersPage extends Component{
     render(){
 
         const charactersList = (
-            <ItemList onItemSelected = {this.onCharSelected} 
-                getData = {() => this.gotService.getAllCharacters()}
-                title = {<h3>Characters:</h3>}
-                renderName = {(item) => <span>{item.name}</span>}
-            />
+           <GotServiceConsumer>
+               {({getAllCharacters}) => {
+                   return (
+                    <ItemList onItemSelected = {this.onCharSelected} 
+                        getData = {getAllCharacters}
+                        title = {<h3>Characters:</h3>}
+                    >
+                        {({name}) => <span>{name}</span>}
+                    </ItemList>
+                   )
+               }}
+           </GotServiceConsumer>
         )
 
         
@@ -47,7 +56,7 @@ class CharatersPage extends Component{
         )
 
 
-        return <Row left = {charactersList} right = {characterDetails}/>
+        return <Row left = {charactersList} right = {characterDetails}/> 
     }
 } 
 export default CharatersPage

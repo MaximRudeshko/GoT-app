@@ -4,6 +4,7 @@ import GotService from '../../services/GotService'
 import ErrorBoundry from '../ErrorBoundry/ErrorBoundry';
 import ItemDetails, { Record } from '../ItemDetails/ItemDetails';
 import Row from '../row/Row';
+import { GotServiceConsumer } from '../service-context/GotServiceContext';
 
 
 class BooksPage extends Component {
@@ -23,11 +24,20 @@ class BooksPage extends Component {
     render(){
 
         const booksList = (
-            <ItemList onItemSelected = {this.onBookSelected} 
-                getData = {() => this.gotService.getAllBooks()}
-                title = {<h3>Books:</h3>}
-                renderName = {(item) => <span>{item.name}</span>}
-            />
+            <GotServiceConsumer>
+                {
+                    ({getAllBooks}) => {
+                        return (
+                            <ItemList onItemSelected = {this.onBookSelected} 
+                                getData = {getAllBooks}
+                                title = {<h3>Books:</h3>}
+                            >
+                                {({name}) => <span>{name}</span>}
+                            </ItemList>
+                        )
+                    }
+                }
+            </GotServiceConsumer>
         )
 
         const bookDetails = (

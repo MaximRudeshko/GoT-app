@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import GotService from '../../services/GotService'
 import ErrorBoundry from '../ErrorBoundry/ErrorBoundry';
+import { HousesList } from '../Item-Lists/ItemLists';
 import ItemDetails, { Record } from '../ItemDetails/ItemDetails';
 import ItemList from '../items-list/ItemsList'
 import Row from '../row/Row'
+import { GotServiceConsumer } from '../service-context/GotServiceContext';
 
 
 export default class HousesPage extends Component{
@@ -23,24 +25,31 @@ export default class HousesPage extends Component{
     render(){
 
         const housesList = (
-            <ItemList onItemSelected = {this.onHouseSelected}
-                getData = {() => this.gotService.getAllHouses()}
-                title = {<h3>Houses:</h3>}
-                renderName = {(item) => <span>{item.name}</span>}
-            />
+           <GotServiceConsumer>
+               {
+                   ({getAllHouses}) => {
+                       return (
+                        <ItemList onItemSelected = {this.onHouseSelected}
+                            getData = {getAllHouses}
+                            title = {<h3>Houses:</h3>}
+                        >
+                            {({name}) => <span>{name}</span>}
+                        </ItemList> 
+                       )
+                   }
+               }
+           </GotServiceConsumer>
         )
 
         const houseDetails = (
             <ErrorBoundry>
-                <ItemDetails itemId = {this.state.selectedHouse}
-                    getData = {this.gotService.getHouse} 
-                    title = {<h3>Please choose a house</h3>}
+                <ItemDetails itemId = {this.state.selectedChar} 
+                        title = {<h3>Please choose a house</h3>}
                 >
-                    <Record label = 'Region' field = 'region'/>
+                    <Record field = 'gender' label = 'Gender'/>
                 </ItemDetails>
             </ErrorBoundry>
         )
-
 
         return <Row left={housesList} right = {houseDetails}/>
     }
