@@ -20,7 +20,7 @@ class RandomCharacter extends Component{
         this.timerId = setInterval(this.updateCharacter, 3000)
     }
 
-    componentDidCatch(){
+    componentWillUnmount(){
         clearInterval(this.timerId)
     }
 

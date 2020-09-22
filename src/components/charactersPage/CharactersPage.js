@@ -5,7 +5,6 @@ import ItemDetails from '../ItemDetails/ItemDetails'
 import GotService from '../../services/GotService'
 import Row from '../row/Row'
 import {Record} from '../ItemDetails/ItemDetails'
-import { CharactersList } from '../Item-Lists/ItemLists'
 import { GotServiceConsumer } from '../service-context/GotServiceContext'
 
 

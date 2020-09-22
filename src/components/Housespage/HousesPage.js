@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import GotService from '../../services/GotService'
 import ErrorBoundry from '../ErrorBoundry/ErrorBoundry';
-import { HousesList } from '../Item-Lists/ItemLists';
 import ItemDetails, { Record } from '../ItemDetails/ItemDetails';
 import ItemList from '../items-list/ItemsList'
 import Row from '../row/Row'

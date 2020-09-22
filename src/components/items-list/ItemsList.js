@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import './ItemsList.scss'
 import withData from '../withData/withData'
-import GotService from '../../services/GotService'
+
 
 
 const ItemList = ({ children: renderName, title, onItemSelected, data}) => {
